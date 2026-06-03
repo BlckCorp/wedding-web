@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Алексей & Мария — свадебное приглашение</title>
+  <meta name="description" content="Свадебное онлайн-приглашение Алексея и Марии" />
+  <style>
+    :root {
+      --bg: #fbf3ee;
+      --bg-2: #fffaf6;
+      --text: #34251f;
+      --muted: #7e685f;
+      --accent: #b98374;
+      --accent-dark: #8d5d52;
+      --card: rgba(255,255,255,.76);
+      --shadow: 0 22px 70px rgba(75, 42, 33, .14);
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 5%, rgba(185, 131, 116, .22), transparent 34%),
+        radial-gradient(circle at 85% 20%, rgba(255, 214, 197, .55), transparent 28%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 340px;
+      height: 340px;
+      border-radius: 999px;
+      background: rgba(185, 131, 116, .12);
+      filter: blur(2px);
+      z-index: -1;
+    }
+
+    body::before {
+      top: -140px;
+      left: -120px;
+    }
+
+    body::after {
+      bottom: -160px;
+      right: -120px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 12px;
+      z-index: 10;
+      margin: 14px auto 0;
+      width: min(900px, calc(100% - 24px));
+      background: rgba(255,255,255,.62);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(185, 131, 116, .17);
+      border-radius: 999px;
+      box-shadow: 0 10px 28px rgba(75, 42, 33, .08);
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    .nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: .2s ease;
+      white-space: nowrap;
+    }
+
+    .nav a:hover {
+      background: rgba(185, 131, 116, .12);
+      color: var(--text);
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      place-items: center;
+      padding: 70px 0 44px;
+      position: relative;
+    }
+
+    .hero-card {
+      width: min(820px, 100%);
+      background: var(--card);
+      border: 1px solid rgba(185, 131, 116, .18);
+      box-shadow: var(--shadow);
+      border-radius: 42px;
+      padding: clamp(34px, 6vw, 72px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "♡";
+      position: absolute;
+      top: -28px;
+      right: 34px;
+      font-size: 170px;
+      color: rgba(185, 131, 116, .07);
+      line-height: 1;
+    }
+
+    .label {
+      font-family: Arial, sans-serif;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--accent-dark);
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(58px, 12vw, 132px);
+      font-weight: 400;
+      line-height: .86;
+      letter-spacing: -.06em;
+      margin-bottom: 24px;
+    }
+
+    .amp {
+      display: block;
+      font-size: .55em;
+      color: var(--accent);
+      margin: .05em 0;
+      letter-spacing: -.02em;
+      font-style: italic;
+    }
+
+    .date {
+      font-family: Arial, sans-serif;
+      font-size: clamp(18px, 3vw, 26px);
+      color: var(--muted);
+      margin: 26px 0 34px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 14px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(185, 131, 116, .24);
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 12px 24px rgba(185, 131, 116, .26);
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,.7);
+      color: var(--accent-dark);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    section {
+      padding: 58px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(34px, 5vw, 58px);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .section-subtitle {
+      width: min(720px, 100%);
+      text-align: center;
+      margin: 0 auto 34px;
+      font-family: Arial, sans-serif;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(185, 131, 116, .16);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: 0 12px 34px rgba(75, 42, 33, .08);
+    }
+
+    .card h3 {
+      font-size: 25px;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+
+    .card p,
+    .card li {
+      font-family: Arial, sans-serif;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 15px;
+    }
+
+    .card ul {
+      padding-left: 18px;
+      margin-top: 10px;
+    }
+
+    .photo-row {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .photo {
+      min-height: 420px;
+      border-radius: 38px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(185, 131, 116, .15);
+      background:
+        linear-gradient(120deg, rgba(52, 37, 31, .12), rgba(185, 131, 116, .10)),
+        url("https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1400&q=80") center/cover;
+    }
+
+    .photo.small {
+      background:
+        linear-gradient(120deg, rgba(52, 37, 31, .08), rgba(185, 131, 116, .10)),
+        url("https://images.unsplash.com/photo-1529634597503-139d3726fed5?auto=format&fit=crop&w=900&q=80") center/cover;
+    }
+
+    .photo .caption {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.68);
+      backdrop-filter: blur(14px);
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .timeline {
+      width: min(760px, 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: 16px;
+    }
+
+    .time-item {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 20px;
+      align-items: start;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(185, 131, 116, .16);
+      border-radius: 26px;
+      padding: 20px;
+    }
+
+    .time {
+      font-family: Arial, sans-serif;
+      color: var(--accent-dark);
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .time-item h3 {
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .time-item p {
+      font-family: Arial, sans-serif;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .map-card {
+      width: min(860px, 100%);
+      margin: 0 auto;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(185, 131, 116, .16);
+      border-radius: 38px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .map-placeholder {
+      height: 330px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 30px;
+      background:
+        linear-gradient(45deg, rgba(185, 131, 116, .14) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(185, 131, 116, .14) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(185, 131, 116, .14) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(185, 131, 116, .14) 75%);
+      background-size: 34px 34px;
+      background-position: 0 0, 0 17px, 17px -17px, -17px 0px;
+    }
+
+    .map-placeholder div {
+      background: rgba(255,255,255,.82);
+      border-radius: 28px;
+      padding: 28px;
+      max-width: 520px;
+    }
+
+    .map-placeholder strong {
+      display: block;
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .map-placeholder span {
+      font-family: Arial, sans-serif;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .map-info {
+      padding: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .map-info p {
+      font-family: Arial, sans-serif;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .dress {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .color-dot {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 1px rgba(52,37,31,.12), 0 10px 22px rgba(75,42,33,.10);
+    }
+
+    .dot-1 { background: #efe0d8; }
+    .dot-2 { background: #d7b7aa; }
+    .dot-3 { background: #b98374; }
+    .dot-4 { background: #7c5b51; }
+    .dot-5 { background: #f8f1e8; }
+
+    .rsvp {
+      width: min(760px, 100%);
+      margin: 0 auto;
+      background: rgba(255,255,255,.8);
+      border: 1px solid rgba(185, 131, 116, .16);
+      border-radius: 38px;
+      padding: clamp(26px, 5vw, 46px);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .rsvp p {
+      font-family: Arial, sans-serif;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 22px;
+    }
+
+    .footer {
+      padding: 44px 0 70px;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .seller-badge {
+      margin: 24px auto 0;
+      width: min(760px, 100%);
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.72);
+      border: 1px dashed rgba(185, 131, 116, .5);
+      font-family: Arial, sans-serif;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 780px) {
+      .nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+      }
+
+      .grid,
+      .photo-row {
+        grid-template-columns: 1fr;
+      }
+
+      .photo,
+      .photo.small {
+        min-height: 330px;
+      }
+
+      .time-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .hero {
+        min-height: 88vh;
+      }
+
+      .hero-card {
+        border-radius: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    БЫСТРАЯ НАСТРОЙКА:
+    1. Заменить имена: Алексей и Мария
+    2. Заменить дату: 24 августа 2026
+    3. Заменить адрес
+    4. Заменить номер WhatsApp в ссылках: 79990000000
+    5. Заменить ссылки на фото в блоках .photo и .photo.small
+  -->
+
+  <nav class="nav">
+    <a href="#about">О свадьбе</a>
+    <a href="#program">Тайминг</a>
+    <a href="#place">Место</a>
+    <a href="#dresscode">Дресс-код</a>
+    <a href="#rsvp">Я приду</a>
+  </nav>
+
+  <main class="page">
+    <header class="hero">
+      <div class="hero-card">
+        <div class="label">Свадебное приглашение</div>
+        <h1>
+          Алексей
+          <span class="amp">&</span>
+          Мария
+        </h1>
+        <div class="date">24 августа 2026 · 16:00</div>
+        <p class="section-subtitle">
+          Мы будем счастливы разделить с вами один из самых важных дней нашей жизни.
+          Ждём вас на нашей свадьбе.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#rsvp">Подтвердить присутствие</a>
+          <a class="btn secondary" href="#place">Посмотреть место</a>
+        </div>
+      </div>
+    </header>
+
+    <section id="about">
+      <h2 class="section-title">Наша история</h2>
+      <p class="section-subtitle">
+        Иногда самый обычный день становится началом большой истории.
+        Теперь мы хотим собрать самых близких людей рядом и создать вечер,
+        который будем вспоминать всю жизнь.
+      </p>
+
+      <div class="photo-row">
+        <div class="photo">
+          <div class="caption">Любовь — это когда рядом спокойно, смешно и по-настоящему.</div>
+        </div>
+        <div class="photo small">
+          <div class="caption">До встречи на нашем празднике ♡</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Что важно знать</h2>
+      <p class="section-subtitle">
+        Вся информация для гостей собрана здесь, чтобы ничего не потерялось в переписках.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Дата</h3>
+          <p>24 августа 2026 года. Начало торжественной части в 16:00.</p>
+        </div>
+        <div class="card">
+          <h3>Формат</h3>
+          <p>Уютный вечер с близкими: церемония, ужин, музыка, танцы и красивые фотографии.</p>
+        </div>
+        <div class="card">
+          <h3>Пожелание</h3>
+          <p>Главное для нас — ваше присутствие и хорошее настроение.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="program">
+      <h2 class="section-title">Тайминг дня</h2>
+      <p class="section-subtitle">Небольшой план, чтобы гостям было удобно ориентироваться.</p>
+
+      <div class="timeline">
+        <div class="time-item">
+          <div class="time">16:00</div>
+          <div>
+            <h3>Сбор гостей</h3>
+            <p>Встречаемся, знакомимся, делаем первые фотографии.</p>
+          </div>
+        </div>
+        <div class="time-item">
+          <div class="time">16:30</div>
+          <div>
+            <h3>Церемония</h3>
+            <p>Самый трогательный момент дня.</p>
+          </div>
+        </div>
+        <div class="time-item">
+          <div class="time">17:30</div>
+          <div>
+            <h3>Праздничный ужин</h3>
+            <p>Тёплые слова, вкусная еда, музыка и поздравления.</p>
+          </div>
+        </div>
+        <div class="time-item">
+          <div class="time">20:00</div>
+          <div>
+            <h3>Танцы</h3>
+            <p>Вечер становится громче, веселее и свободнее.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="place">
+      <h2 class="section-title">Место проведения</h2>
+      <p class="section-subtitle">
+        Условный банкетный зал “Лавандовый сад”, г. Тверь, ул. Счастливая, 12.
+      </p>
+
+      <div class="map-card">
+        <div class="map-placeholder">
+          <div>
+            <strong>Здесь будет карта</strong>
+            <span>В реальном заказе сюда вставляется ссылка на Яндекс.Карты или 2ГИС.</span>
+          </div>
+        </div>
+        <div class="map-info">
+          <p>
+            Банкетный зал “Лавандовый сад”<br>
+            г. Тверь, ул. Счастливая, 12
+          </p>
+          <a class="btn primary" href="https://yandex.ru/maps/" target="_blank" rel="noopener">Открыть карту</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="dresscode">
+      <h2 class="section-title">Дресс-код</h2>
+      <p class="section-subtitle">
+        Будем рады, если вы поддержите нежную тёплую палитру вечера:
+        бежевый, пудровый, карамельный, молочный и приглушённый розовый.
+      </p>
+
+      <div class="dress">
+        <span class="color-dot dot-1"></span>
+        <span class="color-dot dot-2"></span>
+        <span class="color-dot dot-3"></span>
+        <span class="color-dot dot-4"></span>
+        <span class="color-dot dot-5"></span>
+      </div>
+    </section>
+
+    <section id="rsvp">
+      <div class="rsvp">
+        <div class="label">RSVP</div>
+        <h2 class="section-title">Вы будете с нами?</h2>
+        <p>
+          Пожалуйста, подтвердите присутствие до 1 августа.
+          Так нам будет проще подготовить места, меню и приятные детали.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="https://wa.me/79990000000?text=Здравствуйте!%20Я%20подтверждаю%20присутствие%20на%20свадьбе%20Алексея%20и%20Марии." target="_blank" rel="noopener">
+            Я приду
+          </a>
+          <a class="btn secondary" href="https://wa.me/79990000000?text=Здравствуйте!%20К%20сожалению,%20я%20не%20смогу%20прийти%20на%20свадьбу%20Алексея%20и%20Марии." target="_blank" rel="noopener">
+            Не смогу прийти
+          </a>
+        </div>
+      </div>
+
+      <div class="seller-badge">
+        <strong>Блок для продажи услуги:</strong><br>
+        Такое приглашение можно сделать под вашу свадьбу за 24 часа.
+        Заменю имена, дату, фото, адрес, карту, стиль и текст.
+        Стоимость от 1 490 ₽.
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Сделано с любовью · Онлайн-приглашение для свадьбы
+  </footer>
+</body>
+</html>
